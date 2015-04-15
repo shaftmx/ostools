@@ -1,14 +1,11 @@
-
+# -
 
 credential:
-  admin:
-    api_version: 2
-    username: admin
-    api_key: foo
-    project_id: admin
-    auth_url: "http://127.0.0.1:5000/v2.0"
-  user:
-
+  api_version: 2
+  auth_url: "http://127.0.0.1:5000/v2.0"
+  username: admin
+  api_key: foo
+  project_id: admin
 #:param str version: version nova api '1.1': '2': '3':
 #:param str username: Username
 #:param str api_key: API Key
@@ -38,3 +35,47 @@ credential:
 #:param bool connection_pool: Use a connection pool
 #:param str session: Session
 #:param str auth: Auth
+
+image:
+  endpoint: 'foo'
+  images:
+    - name: 'debian'
+      copy_from: 'http://'
+      disk_format: 'qcow2'
+      is_public: true
+
+
+network:
+  endpoint_url: 'foo'
+  external:
+    name: 'ext-subnet'
+    network: '10.0.0.0/24'
+    gateway: '10.0.0.1'
+    dns: '8.8.8.8'
+    allocation_pool:
+        start: '10.0.0.100'
+        end: '10.0.0.200'
+  private:
+    - name: 'demo'
+      tenant_name: 'demo'
+      network: '10.0.0.0/24'
+
+tenant:
+  - name: 'demo'
+    description: 'demo project'
+    security_rules:
+      - name: 'default'
+        proto: 'icmp'
+        from_port: -1
+        to_port: -1
+        cidr: '0.0.0.0/0'
+
+identity:
+  - name: 'demo'
+    pass: 'demo'
+    email: 'demo@foo.bar'
+    tenants:
+      - 'demo'
+    keypair:
+      key: 'ssh-rsa ...'
+      name: 'demo-key'
